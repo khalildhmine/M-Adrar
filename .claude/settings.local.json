@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(find /Users/freelife/.agents/skills -name \"SKILL.md\" -o -name \"*.md\" -path \"*/vercel-*\" 2>/dev/null | head -30)"
-    ]
-  }
-}
