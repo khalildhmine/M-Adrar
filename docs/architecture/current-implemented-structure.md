@@ -66,6 +66,20 @@
 - `src/lib/supabase/client.ts`
   - 브라우저용 Supabase 클라이언트 팩토리
 
+## Drizzle ORM 보조 계층
+- `src/lib/drizzle/env.ts`
+  - `DATABASE_URL` 환경변수 검증
+- `src/lib/drizzle/schema.ts`
+  - `academies`, `academy_members`, `academy_enrollments` 테이블의 TypeScript 스키마 선언
+  - 마이그레이션은 `supabase/migrations/*.sql`이 단일 진실 공급원이며 스키마는 수동 동기화
+- `src/lib/drizzle/client.ts`
+  - postgres.js + Supabase Transaction Pooler 기반 Drizzle 인스턴스 팩토리
+  - `server-only` import로 클라이언트 번들 유입 차단
+- `src/lib/drizzle/index.ts`
+  - 공개 API (`db`, 스키마 re-export)
+- `drizzle.config.ts`
+  - `drizzle-kit pull` (introspect) 전용 설정. push/migrate 미사용
+
 ## API 버저닝 + 도메인 라우트
 - 버저닝 기준: `src/app/api/v1/**`
 - 반영 라우트:
@@ -136,3 +150,4 @@
 - 남은 작업:
   - `src/features/*` 도메인 계층 분리 강화
   - UI/도메인/인프라 import 경계 lint 규칙 도입
+  - Drizzle 스키마와 Supabase 마이그레이션 간 동기화 자동 검증 도입

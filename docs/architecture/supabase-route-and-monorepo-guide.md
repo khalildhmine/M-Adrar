@@ -62,6 +62,7 @@ packages/
   ui/
   domain-academy/
   infra-supabase/
+  infra-drizzle/
   config-typescript/
 ```
 

@@ -40,6 +40,7 @@ packages/
   domain-academy/
   domain-auth/
   infra-supabase/
+  infra-drizzle/
   config-typescript/
   config-eslint/
 ```
@@ -48,6 +49,7 @@ packages/
 - `src/components/ui/*` -> `packages/ui`
 - `src/features/academy/*` -> `packages/domain-academy`
 - `src/lib/supabase/*` -> `packages/infra-supabase`
+- `src/lib/drizzle/*` -> `packages/infra-drizzle`
 - `src/app/*` -> `apps/admin-web/src/app/*`
 
 ## 패키지 설계 규칙

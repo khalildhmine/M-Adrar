@@ -23,6 +23,7 @@
 - State: `TanStack Query`(서버 상태), `zustand`(UI 전역 상태)
 - Backend: `Route Handler (/api/v1/**)`
 - Auth/DB: `Supabase Auth + Supabase Postgres + RLS`
+- Complex Query: `Drizzle ORM` (복잡한 서버 쿼리 보조 계층, postgres.js 드라이버)
 - Tooling: `Biome`, `Husky`, 계약 테스트(`node --test tests/*.test.mjs`)
 
 주의:
