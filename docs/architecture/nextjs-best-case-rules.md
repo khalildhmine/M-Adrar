@@ -34,7 +34,7 @@
 ### 1.4 백엔드/데이터/인증
 - 기본 원칙: **권한 판단의 진실 공급원은 Supabase(RLS)**
 - `Supabase`: Auth + Postgres + 정책(RLS) 실행 계층
-- `Prisma`: 내부 관리자/배치/복잡한 서버 도메인 쿼리용 보조 계층
+- `Drizzle ORM`: 내부 관리자/배치/복잡한 서버 도메인 쿼리용 보조 계층 (postgres.js 드라이버)
 - `NextAuth.js`: 소셜 로그인 확장 시 세션 브로커 역할(선택). 단독 권한 소스로 사용하지 않는다.
 
 ### 1.5 인프라
@@ -48,7 +48,7 @@
 ### ARCH-001 계층 경계
 - `src/app/**`: 라우팅, 레이아웃, Route Handler(얇은 어댑터)
 - `src/features/**`: 도메인 유스케이스/서비스
-- `src/lib/**`: 외부 연동(Supabase, Prisma, PostHog 등)
+- `src/lib/**`: 외부 연동(Supabase, Drizzle, PostHog 등)
 - `src/components/**`: UI 구성 요소
 
 ### ARCH-002 의존 방향
@@ -137,7 +137,7 @@
 
 ---
 
-## 6) 데이터/인증 규칙 (Supabase + Prisma + NextAuth)
+## 6) 데이터/인증 규칙 (Supabase + Drizzle + NextAuth)
 
 ### DATA-001 권한 단일 소스 (MUST)
 - 사용자 데이터 접근 권한의 최종 판단은 Supabase RLS 정책으로 수행한다.
@@ -147,12 +147,14 @@
 - 사용자 요청 기반 CRUD는 Supabase 서버 클라이언트 + RLS 경로를 우선 사용한다.
 - 입력은 `zod.safeParse`, 오류 코드는 400/401/403/500으로 통일한다.
 
-### DATA-003 Prisma 사용 경계 (MUST)
-- Prisma는 다음 경우에 한정:
+### DATA-003 Drizzle 사용 경계 (MUST)
+- Drizzle은 다음 경우에 한정:
   - 내부 운영 API
   - 백그라운드 작업/배치
   - RLS 비의존 복합 리포트 쿼리
-- 공개 API에서 Prisma 직접 접근 시 권한 누락 위험을 검토하고 ADR을 남긴다.
+- 공개 API에서 Drizzle 직접 접근 시 권한 누락 위험을 검토하고 ADR을 남긴다.
+- 스키마 정의(`src/lib/drizzle/schema.ts`)는 기존 `supabase/migrations/*.sql`과 수동 동기화한다.
+- `drizzle-kit push/migrate`는 사용하지 않는다. 마이그레이션은 Supabase SQL이 단일 진실 공급원이다.
 
 ### DATA-004 NextAuth 사용 경계 (MUST)
 - NextAuth는 소셜 로그인 확장이 필요할 때만 도입한다.
@@ -239,7 +241,7 @@
 4. 컴포넌트가 boolean prop 분기 대신 조합/variant 구조인가?
 5. 폼/버튼/포커스/모션이 접근성 규칙을 충족하는가?
 6. Supabase RLS/FK/인덱스/정책이 migration에 반영됐는가?
-7. Prisma/NextAuth 사용이 정의된 경계를 넘지 않았는가?
+7. Drizzle/NextAuth 사용이 정의된 경계를 넘지 않았는가?
 8. Storybook 시나리오(`default/loading/empty/error`)가 있는가?
 9. PostHog 이벤트명이 도메인 규칙을 따르고 PII를 배제했는가?
 10. 테스트(`check`, `test`, `build`)를 통과했는가?
