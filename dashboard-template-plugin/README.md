@@ -77,6 +77,7 @@ cp -r dashboard-template-plugin /path/to/other-project/
 /tem:new-api            # API 라우트 스캐폴딩
 /tem:new-feature        # 피처 디렉토리 스캐폴딩
 /tem:new-migration      # Supabase 마이그레이션 스캐폴딩
+/tem:init-project       # 프로젝트 초기화 (도메인 문서 생성)
 ```
 
 에이전트 확인:
@@ -97,6 +98,7 @@ cp -r dashboard-template-plugin /path/to/other-project/
 | `frontend-dev` | React 컴포넌트, Next.js 페이지, UI 코드 작성/수정 | PERF, COMP, UI, STATE, UTIL, DS |
 | `backend-dev` | API 라우트, Supabase, SQL, 마이그레이션 작업 | API, SB, DATA, OBS, QA |
 | `fullstack-review` | PR 리뷰, 코드 리뷰, "review" 키워드 사용 | 전체 규칙 통합 적용 |
+| `project-init` | 프로젝트 초기화 시 또는 `docs/domain/glossary.md`·`project.md` 부재 감지 시 | 도메인 용어집 + 프로젝트 개관 생성 |
 
 **작동 원리**: `src/app/api/` 하위 파일을 수정하면 `backend-dev` 스킬이 자동 활성화되어 API-001(버저닝), API-002(zod 검증) 등의 규칙을 Claude가 인식하고 적용한다.
 
@@ -122,6 +124,7 @@ cp -r dashboard-template-plugin /path/to/other-project/
 | `/tem:new-api <domain>/<resource>` | `/api/v1/` 하위에 API 라우트 스캐폴딩 |
 | `/tem:new-feature <domain>` | `src/features/` 하위에 피처 디렉토리 스캐폴딩 |
 | `/tem:new-migration <description>` | Supabase 마이그레이션 파일 스캐폴딩 |
+| `/tem:init-project` | 프로젝트 초기화 — 도메인 용어집(glossary.md) + 프로젝트 개관(project.md) 생성 |
 
 ### 4. 훅 (Hooks) — 자동 가드레일
 
@@ -258,6 +261,21 @@ Use /api/v1/<domain>/<resource>/route.ts pattern. See API-001.
 Dependency direction: app -> features -> lib (never reverse).
 ```
 
+### 예시 8: 프로젝트 초기화
+
+```
+/tem:init-project
+```
+
+인터뷰 형식으로 도메인 정보를 수집하여 `docs/domain/glossary.md`와 `docs/domain/project.md`를 자동 생성한다:
+
+1. 서비스명, 타겟 사용자, 핵심 가치 질문
+2. 주요 액터 및 역할 정의
+3. 핵심 도메인 영역 및 용어 수집
+4. 템플릿 기반 문서 생성
+
+생성 후 `fullstack-dev` 에이전트가 코드 작업 시 용어집을 참조하여 네이밍 일관성을 유지한다.
+
 ---
 
 ## 적용되는 아키텍처 규칙
@@ -344,10 +362,15 @@ dashboard-template-plugin/
 │   │       ├── api-rules.md           # API-001~004 규칙
 │   │       ├── supabase-rules.md      # SB-001~004, DATA-001~006 규칙
 │   │       └── migration-rules.md     # 마이그레이션/시드 규칙
-│   └── fullstack-review/
-│       ├── SKILL.md                   # 풀스택 리뷰 스킬
+│   ├── fullstack-review/
+│   │   ├── SKILL.md                   # 풀스택 리뷰 스킬
+│   │   └── references/
+│   │       └── checklist.md           # AI 작업 체크리스트 통합본
+│   └── project-init/
+│       ├── SKILL.md                   # 프로젝트 초기화 스킬
 │       └── references/
-│           └── checklist.md           # AI 작업 체크리스트 통합본
+│           ├── glossary-template.md   # 도메인 용어집 템플릿
+│           └── project-template.md    # 프로젝트 개관 템플릿
 ├── agents/
 │   ├── frontend-architect.md          # 프론트엔드 아키텍트 (읽기 전용)
 │   ├── backend-architect.md           # 백엔드 아키텍트 (읽기 전용)
@@ -358,7 +381,8 @@ dashboard-template-plugin/
 │   ├── review-backend.md              # /tem:review-backend
 │   ├── new-api.md                     # /tem:new-api
 │   ├── new-feature.md                 # /tem:new-feature
-│   └── new-migration.md              # /tem:new-migration
+│   ├── new-migration.md              # /tem:new-migration
+│   └── init-project.md                # /tem:init-project
 ├── hooks/
 │   └── hooks.json                     # 자동 검증 훅 (4개)
 └── README.md                          # 이 문서
@@ -372,5 +396,5 @@ dashboard-template-plugin/
 - **UI**: TailwindCSS 4, shadcn/ui, lucide-react, Framer Motion
 - **Form**: react-hook-form, zod
 - **State**: TanStack Query (서버), zustand (UI)
-- **Backend**: Route Handler (`/api/v1/**`), Supabase Auth + Postgres + RLS
+- **Backend**: Route Handler (`/api/v1/**`), Supabase Auth + Postgres + RLS, Drizzle ORM (복잡 쿼리)
 - **Tooling**: Biome, Husky
