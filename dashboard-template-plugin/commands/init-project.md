@@ -1,5 +1,4 @@
 ---
-name: init-project
 description: 프로젝트 초기화 — 도메인 용어집(glossary.md)과 프로젝트 개관(project.md) 생성
 ---
 

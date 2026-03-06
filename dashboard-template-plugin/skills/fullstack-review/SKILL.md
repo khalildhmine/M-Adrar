@@ -6,6 +6,7 @@ description: >
   "run checklist", or needs comprehensive review against PERF/COMP/UI/API/SB/DATA
   rules in this admin dashboard. Most effective when frontend-dev and backend-dev
   skills are also active.
+version: 0.1.0
 ---
 
 # Fullstack Review Skill

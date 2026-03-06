@@ -7,6 +7,7 @@ description: >
   "add zod validation", "implement server-side data access", or works with
   Supabase, Drizzle ORM, or backend architecture in this admin dashboard.
   Enforces API, SB, DATA rules automatically.
+version: 0.1.0
 ---
 
 # Backend Development Skill

@@ -6,6 +6,7 @@ description: >
   "init-project", or when docs/domain/glossary.md or docs/domain/project.md
   is missing. Creates domain terminology glossary and project overview documents
   through an interview-based workflow.
+version: 0.1.0
 ---
 
 # Project Init Skill

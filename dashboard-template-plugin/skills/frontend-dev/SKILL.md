@@ -7,6 +7,7 @@ description: >
   "fix accessibility issues", or works with TailwindCSS, client/server components,
   or frontend architecture in this Next.js 16 + React 19 admin dashboard.
   Enforces PERF, COMP, UI rules automatically.
+version: 0.1.0
 ---
 
 # Frontend Development Skill
