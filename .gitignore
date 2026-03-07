@@ -43,6 +43,6 @@ next-env.d.ts
 .omc/
 
 # local codex artifacts
-.codex/
-.agents/
+#.codex/
+#.agents/
 .ui-designer/
