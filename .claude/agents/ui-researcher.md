@@ -1,1 +1,1 @@
-../plugins/local/ui-resource-scout/agents/ui-researcher.md
+../plugins/local/ui-designer/agents/ui-researcher.md

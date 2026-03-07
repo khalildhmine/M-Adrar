@@ -1,0 +1,1 @@
+../../plugins/local/ui-designer/commands/ui-analyze.md

@@ -1,1 +1,0 @@
-../../plugins/local/ui-resource-scout/commands/ui-research.md
