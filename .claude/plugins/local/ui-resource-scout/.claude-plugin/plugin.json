@@ -1,0 +1,9 @@
+{
+  "name": "ui-resource-scout",
+  "version": "0.1.0",
+  "description": "외부 UI 리소스 리서치 및 추천 플러그인. Next.js + shadcn/ui 기반 외부 템플릿/블록 탐색과 batchtool 컴포넌트 발굴을 전담한다.",
+  "author": {
+    "name": "freelife"
+  },
+  "keywords": ["ui", "research", "templates", "shadcn", "vercel", "batchtool"]
+}
