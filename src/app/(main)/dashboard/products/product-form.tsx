@@ -248,7 +248,9 @@ export function ProductForm({
     }
     setUploadingImageIdx(idx);
     try {
-      const url = await uploadImage(file, apiBase ?? "", { folder: "products" });
+      const url = await uploadImage(file, apiBase ?? "", {
+        folder: "products",
+      });
       setImage(idx, "url", url);
       toast.success("Image uploaded.");
     } catch (err) {
@@ -334,7 +336,8 @@ export function ProductForm({
           base_price_cents: basePrice,
           currency: product.currency || "MRU",
           available_qty:
-            product.available_qty != null && product.available_qty !== ""
+            product.available_qty != null &&
+            typeof product.available_qty === "number"
               ? Number(product.available_qty)
               : null,
           gravure_enabled: product.gravure_enabled,
