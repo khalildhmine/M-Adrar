@@ -1,27 +1,25 @@
 import {
   Banknote,
-  Calendar,
+  Beaker,
   ChartBar,
-  Fingerprint,
-  Forklift,
-  Gauge,
-  GraduationCap,
+  CreditCard,
+  FileText,
+  Gift,
+  ImageIcon,
   Kanban,
   LayoutDashboard,
-  Lock,
-  type LucideIcon,
-  Mail,
-  MessageSquare,
+  Package,
   ReceiptText,
   ShoppingBag,
-  SquareArrowUpRight,
+  SquareStack,
+  Truck,
   Users,
 } from "lucide-react";
 
 export interface NavSubItem {
   title: string;
   url: string;
-  icon?: LucideIcon;
+  icon?: typeof LayoutDashboard;
   comingSoon?: boolean;
   newTab?: boolean;
   isNew?: boolean;
@@ -30,7 +28,7 @@ export interface NavSubItem {
 export interface NavMainItem {
   title: string;
   url: string;
-  icon?: LucideIcon;
+  icon?: typeof LayoutDashboard;
   subItems?: NavSubItem[];
   comingSoon?: boolean;
   newTab?: boolean;
@@ -63,100 +61,87 @@ export const sidebarItems: NavGroup[] = [
         url: "/dashboard/finance",
         icon: Banknote,
       },
-      {
-        title: "Analytics",
-        url: "/dashboard/coming-soon",
-        icon: Gauge,
-        comingSoon: true,
-      },
-      {
-        title: "E-commerce",
-        url: "/dashboard/coming-soon",
-        icon: ShoppingBag,
-        comingSoon: true,
-      },
-      {
-        title: "Academy",
-        url: "/dashboard/coming-soon",
-        icon: GraduationCap,
-        comingSoon: true,
-      },
-      {
-        title: "Logistics",
-        url: "/dashboard/coming-soon",
-        icon: Forklift,
-        comingSoon: true,
-      },
     ],
   },
   {
     id: 2,
-    label: "Pages",
+    label: "Catalogue",
     items: [
-      {
-        title: "Email",
-        url: "/dashboard/coming-soon",
-        icon: Mail,
-        comingSoon: true,
-      },
-      {
-        title: "Chat",
-        url: "/dashboard/coming-soon",
-        icon: MessageSquare,
-        comingSoon: true,
-      },
-      {
-        title: "Calendar",
-        url: "/dashboard/coming-soon",
-        icon: Calendar,
-        comingSoon: true,
-      },
-      {
-        title: "Kanban",
-        url: "/dashboard/coming-soon",
-        icon: Kanban,
-        comingSoon: true,
-      },
-      {
-        title: "Invoice",
-        url: "/dashboard/coming-soon",
-        icon: ReceiptText,
-        comingSoon: true,
-      },
       {
         title: "Users",
-        url: "/dashboard/coming-soon",
+        url: "/dashboard/users",
         icon: Users,
-        comingSoon: true,
       },
       {
-        title: "Roles",
-        url: "/dashboard/coming-soon",
-        icon: Lock,
-        comingSoon: true,
+        title: "Products",
+        url: "/dashboard/products",
+        icon: ShoppingBag,
       },
       {
-        title: "Authentication",
-        url: "/auth",
-        icon: Fingerprint,
+        title: "Types",
+        url: "/dashboard/types",
+        icon: Kanban,
+      },
+      {
+        title: "Ingredients",
+        url: "/dashboard/ingredients",
+        icon: Beaker,
+      },
+      {
+        title: "Banners",
+        url: "/dashboard/banners",
+        icon: ImageIcon,
+      },
+      {
+        title: "Gift selections",
+        url: "/dashboard/gift-selections",
+        icon: Gift,
+      },
+      {
+        title: "Our Story",
+        url: "/dashboard/our-story",
+        icon: SquareStack,
+      },
+      {
+        title: "Home sections",
+        url: "/dashboard/home-sections",
+        icon: LayoutDashboard,
+      },
+      {
+        title: "Content",
+        url: "/dashboard/content/pages",
+        icon: FileText,
         subItems: [
-          { title: "Login v1", url: "/auth/v1/login", newTab: true },
-          { title: "Login v2", url: "/auth/v2/login", newTab: true },
-          { title: "Register v1", url: "/auth/v1/register", newTab: true },
-          { title: "Register v2", url: "/auth/v2/register", newTab: true },
+          { title: "Pages", url: "/dashboard/content/pages" },
+          { title: "FAQs", url: "/dashboard/content/faqs" },
         ],
       },
-    ],
-  },
-  {
-    id: 3,
-    label: "Misc",
-    items: [
       {
-        title: "Others",
-        url: "/dashboard/coming-soon",
-        icon: SquareArrowUpRight,
-        comingSoon: true,
+        title: "Shipping",
+        url: "/dashboard/settings/shipping",
+        icon: Truck,
+        subItems: [
+          { title: "Free shipping", url: "/dashboard/settings/shipping" },
+          {
+            title: "Cities & quartiers",
+            url: "/dashboard/settings/delivery-zones",
+          },
+        ],
+      },
+      {
+        title: "Discounts",
+        url: "/dashboard/discounts",
+        icon: ReceiptText,
+      },
+      {
+        title: "Orders",
+        url: "/dashboard/orders",
+        icon: Package,
+      },
+      {
+        title: "Payment methods",
+        url: "/dashboard/payment-methods",
+        icon: CreditCard,
       },
     ],
   },

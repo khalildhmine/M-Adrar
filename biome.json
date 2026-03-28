@@ -31,7 +31,18 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!.github", "!.husky", "!node_modules", "!.next", "!dist", "!out", "!src/components/ui"]
+    "includes": [
+      "**",
+      "!.github",
+      "!.husky",
+      "!.claude",
+      "!.codex",
+      "!node_modules",
+      "!.next",
+      "!dist",
+      "!out",
+      "!src/components/ui"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -54,15 +65,16 @@
         "noUndeclaredVariables": "error"
       },
       "nursery": {
-        "useSortedClasses": "on"
+        "useSortedClasses": "off"
       },
       "performance": {
-        "noImgElement": "warn"
+        "noImgElement": "off"
       },
       "style": {
         "noCommonJs": "error",
         "noHeadElement": "warn",
         "noNamespace": "error",
+        "noNonNullAssertion": "off",
         "useAsConstAssertion": "error",
         "useSelfClosingElements": "error",
         "noParameterAssign": "error",

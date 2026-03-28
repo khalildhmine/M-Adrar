@@ -213,3 +213,23 @@ html {
 .disable-transitions * {
   transition: none !important;
 }
+
+/* Staggered character animation for Maison Adrar title (like my-app FancyText) */
+@keyframes fancy-char {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.92);
+  }
+  70% {
+    transform: translateY(-1px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-fancy-char {
+  opacity: 0;
+  animation: fancy-char 0.5s ease-out forwards;
+}

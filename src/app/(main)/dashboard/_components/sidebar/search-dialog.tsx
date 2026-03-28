@@ -1,7 +1,15 @@
 "use client";
 import * as React from "react";
 
-import { ChartBar, Forklift, Gauge, GraduationCap, LayoutDashboard, Search, ShoppingBag } from "lucide-react";
+import {
+  ChartBar,
+  Forklift,
+  Gauge,
+  GraduationCap,
+  LayoutDashboard,
+  Search,
+  ShoppingBag,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,10 +25,6 @@ import {
 const searchItems = [
   { group: "Dashboards", icon: LayoutDashboard, label: "Default" },
   { group: "Dashboards", icon: ChartBar, label: "CRM", disabled: true },
-  { group: "Dashboards", icon: Gauge, label: "Analytics", disabled: true },
-  { group: "Dashboards", icon: ShoppingBag, label: "E-Commerce", disabled: true },
-  { group: "Dashboards", icon: GraduationCap, label: "Academy", disabled: true },
-  { group: "Dashboards", icon: Forklift, label: "Logistics", disabled: true },
   { group: "Authentication", label: "Login v1" },
   { group: "Authentication", label: "Login v2" },
   { group: "Authentication", label: "Register v1" },
@@ -57,21 +61,27 @@ export function SearchDialog() {
         <CommandInput placeholder="Search dashboards, users, and more…" />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
-          {[...new Set(searchItems.map((item) => item.group))].map((group, i) => (
-            <React.Fragment key={group}>
-              {i !== 0 && <CommandSeparator />}
-              <CommandGroup heading={group} key={group}>
-                {searchItems
-                  .filter((item) => item.group === group)
-                  .map((item) => (
-                    <CommandItem className="!py-1.5" key={item.label} onSelect={() => setOpen(false)}>
-                      {item.icon && <item.icon />}
-                      <span>{item.label}</span>
-                    </CommandItem>
-                  ))}
-              </CommandGroup>
-            </React.Fragment>
-          ))}
+          {[...new Set(searchItems.map((item) => item.group))].map(
+            (group, i) => (
+              <React.Fragment key={group}>
+                {i !== 0 && <CommandSeparator />}
+                <CommandGroup heading={group} key={group}>
+                  {searchItems
+                    .filter((item) => item.group === group)
+                    .map((item) => (
+                      <CommandItem
+                        className="!py-1.5"
+                        key={item.label}
+                        onSelect={() => setOpen(false)}
+                      >
+                        {item.icon && <item.icon />}
+                        <span>{item.label}</span>
+                      </CommandItem>
+                    ))}
+                </CommandGroup>
+              </React.Fragment>
+            ),
+          )}
         </CommandList>
       </CommandDialog>
     </>

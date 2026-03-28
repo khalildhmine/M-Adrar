@@ -89,10 +89,10 @@ export function AppSidebar({
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
+            <SidebarMenuButton asChild tooltip={APP_CONFIG.name}>
               <Link prefetch={false} href="/dashboard/default">
                 <Command />
-                <span className="font-semibold text-base">{APP_CONFIG.name}</span>
+                <span className="font-semibold text-base group-data-[collapsible=icon]:hidden">{APP_CONFIG.name}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

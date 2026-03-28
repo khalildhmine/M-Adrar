@@ -12,21 +12,29 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { cn } from "@/lib/utils";
 import { getPreference } from "@/server/server-actions";
 
+import { RequireAdminToken } from "./_components/require-admin-token";
 import { AccountSwitcher } from "./_components/sidebar/account-switcher";
 import { LayoutControls } from "./_components/sidebar/layout-controls";
 import { SearchDialog } from "./_components/sidebar/search-dialog";
 import { ThemeSwitcher } from "./_components/sidebar/theme-switcher";
 
-const DEMO_USER = {
-  id: "demo",
-  name: "Demo User",
-  email: "demo@example.com",
+/** Shown in the shell when auth is JWT-only (`admin_token`); details come from login, not the server. */
+const JWT_PLACEHOLDER_USER = {
+  id: "admin",
+  name: "Admin",
+  email: "",
   avatar: "",
-  role: "owner",
+  role: "admin",
 };
 
 export default async function Layout({ children }: Readonly<{ children: ReactNode }>) {
-  let currentUser = DEMO_USER;
+  let currentUser: {
+    id: string;
+    name: string;
+    email: string;
+    avatar: string;
+    role: string;
+  } = JWT_PLACEHOLDER_USER;
 
   if (isSupabaseConfigured()) {
     const supabase = await createSupabaseServerClient();
@@ -36,7 +44,7 @@ export default async function Layout({ children }: Readonly<{ children: ReactNod
     } = await supabase.auth.getUser();
 
     if (authError || !user) {
-      redirect("/auth/v1/login?next=/dashboard/default");
+      redirect("/auth/v1/login");
     }
 
     const { data: member, error: memberError } = await supabase
@@ -68,7 +76,7 @@ export default async function Layout({ children }: Readonly<{ children: ReactNod
     getPreference("sidebar_collapsible", SIDEBAR_COLLAPSIBLE_VALUES, "icon"),
   ]);
 
-  return (
+  const dashboardShell = (
     <SidebarProvider defaultOpen={defaultOpen}>
       <AppSidebar variant={variant} collapsible={collapsible} currentUser={currentUser} />
       <SidebarInset
@@ -103,4 +111,10 @@ export default async function Layout({ children }: Readonly<{ children: ReactNod
       </SidebarInset>
     </SidebarProvider>
   );
+
+  if (isSupabaseConfigured()) {
+    return dashboardShell;
+  }
+
+  return <RequireAdminToken>{dashboardShell}</RequireAdminToken>;
 }

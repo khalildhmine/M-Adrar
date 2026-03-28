@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import { CircleUser, CreditCard, EllipsisVertical, LogOut, MessageSquareDot } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -13,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
+import { clearAdminSession } from "@/lib/admin-session";
 import { getInitials } from "@/lib/utils";
 
 export function NavUser({
@@ -24,7 +27,13 @@ export function NavUser({
     readonly avatar: string;
   };
 }) {
+  const router = useRouter();
   const { isMobile } = useSidebar();
+
+  const logout = () => {
+    clearAdminSession();
+    router.replace("/auth/v1/login");
+  };
 
   return (
     <SidebarMenu>
@@ -80,7 +89,7 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onSelect={logout}>
               <LogOut />
               Log out
             </DropdownMenuItem>

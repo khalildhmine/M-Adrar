@@ -35,6 +35,9 @@ const IsComingSoon = () => (
   <span className="ml-auto rounded-md bg-gray-200 px-2 py-1 text-xs dark:text-gray-800">Soon</span>
 );
 
+/** Sidebar root sets `data-collapsible="icon"` when using icon rail; hide labels so only icons show. */
+const labelIconRail = "group-data-[collapsible=icon]:hidden";
+
 const NavItemExpanded = ({
   item,
   isActive,
@@ -50,7 +53,7 @@ const NavItemExpanded = ({
         <SidebarMenuButton asChild aria-disabled={item.comingSoon} isActive={isActive(item.url)} tooltip={item.title}>
           <Link prefetch={false} href={item.url} target={item.newTab ? "_blank" : undefined}>
             {item.icon && <item.icon />}
-            <span>{item.title}</span>
+            <span className={labelIconRail}>{item.title}</span>
             {item.comingSoon && <IsComingSoon />}
           </Link>
         </SidebarMenuButton>
@@ -68,9 +71,9 @@ const NavItemExpanded = ({
             tooltip={item.title}
           >
             {item.icon && <item.icon />}
-            <span>{item.title}</span>
+            <span className={labelIconRail}>{item.title}</span>
             {item.comingSoon && <IsComingSoon />}
-            <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+            <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 group-data-[collapsible=icon]:hidden" />
           </SidebarMenuButton>
         </CollapsibleTrigger>
         <CollapsibleContent>
@@ -80,7 +83,7 @@ const NavItemExpanded = ({
                 <SidebarMenuSubButton aria-disabled={subItem.comingSoon} isActive={isActive(subItem.url)} asChild>
                   <Link prefetch={false} href={subItem.url} target={subItem.newTab ? "_blank" : undefined}>
                     {subItem.icon && <subItem.icon />}
-                    <span>{subItem.title}</span>
+                    <span className={labelIconRail}>{subItem.title}</span>
                     {subItem.comingSoon && <IsComingSoon />}
                   </Link>
                 </SidebarMenuSubButton>
@@ -110,8 +113,7 @@ const NavItemCollapsed = ({
             isActive={isActive(item.url, item.subItems)}
           >
             {item.icon && <item.icon />}
-            <span>{item.title}</span>
-            <ChevronRight />
+            <span className="sr-only">{item.title}</span>
           </SidebarMenuButton>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-50 space-y-1" side="right" align="start">
@@ -164,11 +166,11 @@ export function NavMain({ items }: NavMainProps) {
                 className="min-w-8 bg-primary text-primary-foreground duration-200 ease-linear hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground"
               >
                 <PlusCircleIcon />
-                <span>Quick Create</span>
+                <span className={labelIconRail}>Quick Create</span>
               </SidebarMenuButton>
               <Button
                 size="icon"
-                className="h-9 w-9 shrink-0 group-data-[collapsible=icon]:opacity-0"
+                className="h-9 w-9 shrink-0 group-data-[collapsible=icon]:hidden"
                 variant="outline"
               >
                 <MailIcon />
@@ -197,7 +199,7 @@ export function NavMain({ items }: NavMainProps) {
                         >
                           <Link prefetch={false} href={item.url} target={item.newTab ? "_blank" : undefined}>
                             {item.icon && <item.icon />}
-                            <span>{item.title}</span>
+                            <span className={labelIconRail}>{item.title}</span>
                           </Link>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
